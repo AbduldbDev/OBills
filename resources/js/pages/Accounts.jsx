@@ -271,7 +271,7 @@ const Accounts = () => {
                                 onDeleteSuccess={() => {}} // Not used with page navigation
                                 getAccountAge={getAccountAge}
                                 getRoleLabel={getRoleLabel}
-                                isReadOnly
+                                isReadOnly={isReadOnly}
                             />
                         ))}
                     </div>
