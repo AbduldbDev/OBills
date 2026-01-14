@@ -250,11 +250,7 @@ const DashboardCharts = ({ monthlyBillsData, kwhRateData, theme }) => {
                 </div>
 
                 {billsStats && (
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6">
-                        <StatCard
-                            label="Total Period"
-                            value={formatCurrency(billsStats.total)}
-                        />
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-6">
                         <StatCard
                             label="Monthly Avg"
                             value={formatCurrency(billsStats.average)}
@@ -389,11 +385,7 @@ const DashboardCharts = ({ monthlyBillsData, kwhRateData, theme }) => {
                 </div>
 
                 {rateStats && (
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6">
-                        <StatCard
-                            label="Current Rate"
-                            value={formatRate(rateStats.current)}
-                        />
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-6">
                         <StatCard
                             label="Period Avg"
                             value={formatRate(rateStats.average)}
