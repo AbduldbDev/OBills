@@ -37,18 +37,19 @@ const CalculationDetails = () => {
     const formatDate = (dateString) => {
         if (!dateString) return "Not Paid";
         try {
-            return new Date(dateString).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-                hour: "2-digit",
-                minute: "2-digit",
-            });
+            return new Date(dateString)
+                .toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    year: "2-digit",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                })
+                .replace(",", "");
         } catch (error) {
             return "N/A";
         }
     };
-
     const formatCurrency = (amount) => {
         if (amount === null || amount === undefined) return "₱0.00";
         try {
@@ -69,6 +70,31 @@ const CalculationDetails = () => {
                 year: "numeric",
                 month: "long",
                 day: "numeric",
+            });
+        } catch (error) {
+            return "N/A";
+        }
+    };
+
+    const formatDateOnlyShort = (dateString) => {
+        if (!dateString) return "N/A";
+        try {
+            return new Date(dateString).toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+                year: "2-digit",
+            });
+        } catch (error) {
+            return "N/A";
+        }
+    };
+
+    const formatTimeOnly = (dateString) => {
+        if (!dateString) return "N/A";
+        try {
+            return new Date(dateString).toLocaleTimeString("en-US", {
+                hour: "2-digit",
+                minute: "2-digit",
             });
         } catch (error) {
             return "N/A";
@@ -330,12 +356,10 @@ const CalculationDetails = () => {
                                                     Payment By:
                                                 </span>
                                                 <span className="font-medium text-gray-900 dark:text-white">
-                                                    {formatDate(
-                                                        calculation.date_paid
-                                                    )}
+                                                    {calculation.payment_by ||
+                                                        "N/A"}
                                                 </span>
                                             </div>
-
                                             <div className="flex justify-between">
                                                 <span className="text-gray-600 dark:text-gray-400">
                                                     Date Paid:
@@ -350,14 +374,14 @@ const CalculationDetails = () => {
                                     </div>
                                     <div>
                                         <h4 className="text-xs md:text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                            Payment Information
+                                            Receipt Information
                                         </h4>
                                         <div className="space-y-1 md:space-y-2 text-sm">
-                                            <div className="flex justify-between">
-                                                <span className="text-gray-600 dark:text-gray-400">
-                                                    Method:
+                                            <div className="flex justify-between items-center py-0.5">
+                                                <span className="text-gray-600 dark:text-gray-400 text-sm">
+                                                    Payment Method:
                                                 </span>
-                                                <span className="font-medium text-gray-900 dark:text-white">
+                                                <span className="font-medium capitalize text-gray-900 dark:text-white">
                                                     {calculation.method ||
                                                         "Not Paid"}
                                                 </span>
@@ -366,13 +390,22 @@ const CalculationDetails = () => {
                                                 <span className="text-gray-600 dark:text-gray-400 text-sm">
                                                     Attachment:
                                                 </span>
-                                                <a
-                                                    href=""
-                                                    className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm font-medium flex items-center gap-1.5"
-                                                >
-                                                    <i className="fas fa-paperclip text-xs"></i>
-                                                    View Attachment
-                                                </a>
+                                                {calculation.image ? (
+                                                    <a
+                                                        href={`/storage/${calculation.image}`}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm font-medium flex items-center gap-1.5"
+                                                    >
+                                                        <i className="fas fa-paperclip text-xs"></i>
+                                                        View Attachment
+                                                    </a>
+                                                ) : (
+                                                    <span className="text-gray-500 dark:text-gray-400 text-sm font-medium flex items-center gap-1.5">
+                                                        <i className="fas fa-times-circle text-xs"></i>
+                                                        No Attachment
+                                                    </span>
+                                                )}
                                             </div>
                                         </div>
                                     </div>
@@ -474,7 +507,9 @@ const CalculationDetails = () => {
                                         Date
                                     </span>
                                     <span className="font-medium text-gray-900 dark:text-white text-right">
-                                        {formatDate(calculation.created_at)}
+                                        {formatDateOnlyShort(
+                                            calculation.created_at
+                                        )}
                                     </span>
                                 </div>
                                 <div className="flex justify-between items-center">
@@ -483,7 +518,9 @@ const CalculationDetails = () => {
                                     </span>
                                     <div className="text-right">
                                         <div className="font-medium text-gray-900 dark:text-white">
-                                            aa
+                                            {formatTimeOnly(
+                                                calculation.created_at
+                                            )}
                                         </div>
                                     </div>
                                 </div>

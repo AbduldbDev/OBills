@@ -12,7 +12,6 @@ import PaymentHistoryCard from "../components/Cards/PaymentHistoryCard";
 import { billsApi } from "../api/billsApi";
 import { useAuth } from "../context/AuthContext";
 
-
 const PaymentHistory = () => {
     const navigate = useNavigate();
     const { id } = useParams();
@@ -190,32 +189,24 @@ const PaymentHistory = () => {
         setFilteredPayments(result);
     };
 
-    const handleUpdateStatus = async (paymentId, newStatus) => {
-        setIsUpdating(true);
-        try {
-            // This would be your actual API call
-            // await paymentApi.updatePaymentStatus(paymentId, newStatus);
-
-            // Update local state
-            setPayments((prevPayments) =>
-                prevPayments.map((payment) =>
-                    payment.id === paymentId
-                        ? { ...payment, status: newStatus }
-                        : payment
-                )
-            );
-
+    const handleStatusUpdateComplete = async (updateResult) => {
+        if (updateResult.success) {
             // Show success message
             setUpdateSuccessMessage(
-                `Status updated to ${newStatus} successfully!`
+                updateResult.message || "Payment status updated successfully!"
             );
+
+            // Clear success message after 3 seconds
             setTimeout(() => setUpdateSuccessMessage(""), 3000);
-        } catch (error) {
-            console.error("Update error:", error);
-            setError("Failed to update status. Please try again.");
-        } finally {
-            setIsUpdating(false);
-            setPaymentToUpdate(null);
+
+            // Refresh the payment list to get latest data
+            await fetchPaymentsFromAPI();
+        } else {
+            // Show error message
+            setError(updateResult.error || "Failed to update payment status");
+
+            // Clear error after 5 seconds
+            setTimeout(() => setError(null), 5000);
         }
     };
 
@@ -315,7 +306,7 @@ const PaymentHistory = () => {
                         <PaymentHistoryCard
                             key={payment.id}
                             payment={payment}
-                            onUpdateStatus={setPaymentToUpdate}
+                            onUpdateStatus={handleStatusUpdateComplete}
                             onViewDetails={handleViewDetails}
                             getStatusColor={getStatusColor}
                             getStatusLabel={getStatusLabel}

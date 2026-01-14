@@ -19,7 +19,9 @@ class TenantBill extends Model
         'computed_by',
         'status',
         'date_paid',
+        'payment_by',
         'method',
+        'image'
     ];
 
 

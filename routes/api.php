@@ -27,5 +27,8 @@ Route::middleware(['auth:sanctum',])->group(function () {
     Route::get('tenant-bills/apartment/{id}', [TenantBillController::class, 'getByUnit']);
     Route::get('reading-history/{id}/{year}', [TenantBillController::class, 'getBillHistory']);
     Route::get('data-check/{id}', [TenantBillController::class, 'getDataByDate']);
+    Route::post('update-payment-status', [TenantBillController::class, 'updateStatus']);
+
+
     Route::apiResource('tenant-bills', TenantBillController::class);
 });

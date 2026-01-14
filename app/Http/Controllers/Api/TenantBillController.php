@@ -7,6 +7,7 @@ use App\Models\BillsReceipt;
 use App\Models\TenantBill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class TenantBillController extends Controller
 {
@@ -150,6 +151,55 @@ class TenantBillController extends Controller
         return response()->json([
             'message' => 'Months with data retrieved successfully',
             'data' => $months,
+        ], 200);
+    }
+
+
+    public function updateStatus(Request $request)
+    {
+
+        $request->validate([
+            'id'             => 'required|exists:tenant_bills,id',
+            'status'         => 'required|in:pending,sent,paid,skipped',
+            'method'         => 'nullable|string|max:100|required_if:status,paid',
+            'payment_date'   => 'nullable|date|required_if:status,paid',
+            'receipt'        => 'nullable|image|mimes:jpg,jpeg,png,webp|max:10240',
+            'month'          => 'nullable|string',
+        ]);
+
+        $bill = TenantBill::findOrFail($request->id);
+        $bill->status = $request->status;
+
+        if ($request->filled('month')) {
+            $bill->month = $request->month;
+        }
+
+        if ($request->status === 'paid') {
+            $bill->method = $request->method;
+            $bill->date_paid = $request->payment_date;
+            $bill->payment_by = Auth::user()->name;
+
+            if ($request->hasFile('receipt')) {
+                if ($bill->image) {
+                    Storage::disk('public')->delete($bill->image);
+                }
+                $path = $request->file('receipt')->store('receipts', 'public');
+                $bill->image = $path;
+            }
+        }
+
+        if ($request->status !== 'paid') {
+            $bill->method = null;
+            $bill->date_paid = null;
+            $bill->image = null;
+            $bill->payment_by = null;
+        }
+
+        $bill->save();
+
+        return response()->json([
+            'message' => 'Tenant bill updated successfully',
+            'data'    => $bill,
         ], 200);
     }
 }

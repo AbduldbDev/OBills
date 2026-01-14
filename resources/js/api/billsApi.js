@@ -68,4 +68,21 @@ export const billsApi = {
             throw error;
         }
     },
+
+    updateStatus: async (formData) => {
+        try {
+            const response = await api.post(
+                "/update-payment-status",
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
+            );
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
 };
