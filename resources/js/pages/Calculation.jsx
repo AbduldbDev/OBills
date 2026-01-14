@@ -3,6 +3,7 @@ import { CalculationApi } from "../api/calculationApi";
 import BillCard from "../components/Dashboard/BillCard";
 import Layout from "../components/Layout/Layout";
 import PageHeader from "../components/Common/PageHeader";
+import EmptyState from "../components/Common/EmptyState";
 
 const Calculation = () => {
     const [selectedMonth, setSelectedMonth] = useState(null);
@@ -108,7 +109,6 @@ const Calculation = () => {
         });
     };
 
-    // Calculate statistics
     const calculateStats = () => {
         const bills = transformDataToBills();
         const paid = bills.filter((bill) => bill.status === "paid").length;
@@ -184,41 +184,38 @@ const Calculation = () => {
                 {!loading && !error && (
                     <>
                         {transformDataToBills().length > 0 ? (
-                            <div className="grid grid-cols-1 lg:grid-cols-3  gap-4">
-                                {transformDataToBills().map((bill) => (
-                                    <BillCard
-                                        key={`${bill.id}-${selectedMonth}`}
-                                        bill={bill}
-                                        totalBill={totalBill}
-                                        selectedMonth={selectedMonth}
-                                    />
-                                ))}
-                            </div>
-                        ) : (
-                            <div className="text-center py-8">
-                                <div className="text-gray-400 mb-4">
-                                    <i className="fas fa-file-invoice text-4xl"></i>
+                            <>
+                                <div className="grid grid-cols-1 lg:grid-cols-3  gap-4">
+                                    {transformDataToBills().map((bill) => (
+                                        <BillCard
+                                            key={`${bill.id}-${selectedMonth}`}
+                                            bill={bill}
+                                            totalBill={totalBill}
+                                            selectedMonth={selectedMonth}
+                                        />
+                                    ))}
                                 </div>
-                                <h3 className="text-lg font-medium text-gray-600 dark:text-gray-300 mb-2">
-                                    No bills found for {selectedMonth}
-                                </h3>
-                                <p className="text-gray-500 dark:text-gray-400">
-                                    Select a different month or check if bills
-                                    have been generated.
-                                </p>
-                            </div>
+                                {selectedMonth && (
+                                    <div className="mt-6 text-sm text-gray-500 dark:text-gray-400">
+                                        <p>
+                                            Showing data for:{" "}
+                                            <span className="font-medium">
+                                                {selectedMonth}
+                                            </span>
+                                        </p>
+                                    </div>
+                                )}
+                            </>
+                        ) : (
+                            <EmptyState
+                                icon="fa-building"
+                                title={"No apartments found"}
+                                message={
+                                    "Get started by adding your first apartment."
+                                }
+                            />
                         )}
                     </>
-                )}
-
-                {/* Selected Month Info */}
-                {selectedMonth && (
-                    <div className="mt-6 text-sm text-gray-500 dark:text-gray-400">
-                        <p>
-                            Showing data for:{" "}
-                            <span className="font-medium">{selectedMonth}</span>
-                        </p>
-                    </div>
                 )}
             </div>
         </Layout>

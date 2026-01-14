@@ -10,6 +10,8 @@ import ConfirmationModal from "../components/Common/ConfirmationModal";
 import Layout from "../components/Layout/Layout";
 import PaymentHistoryCard from "../components/Cards/PaymentHistoryCard";
 import { billsApi } from "../api/billsApi";
+import { useAuth } from "../context/AuthContext";
+
 
 const PaymentHistory = () => {
     const navigate = useNavigate();
@@ -18,6 +20,8 @@ const PaymentHistory = () => {
     const [filteredPayments, setFilteredPayments] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const { user } = useAuth();
+    const isReadOnly = user && user.role === "viewer";
 
     // Search and filter states
     const [searchTerm, setSearchTerm] = useState("");
@@ -315,6 +319,7 @@ const PaymentHistory = () => {
                             onViewDetails={handleViewDetails}
                             getStatusColor={getStatusColor}
                             getStatusLabel={getStatusLabel}
+                            isReadOnly={isReadOnly}
                         />
                     ))}
                 </div>

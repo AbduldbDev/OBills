@@ -22,8 +22,7 @@ const BillReceipt = () => {
     const currentYear = new Date().getFullYear();
     const years = Array.from({ length: 6 }, (_, i) => currentYear - i);
     const { user } = useAuth();
-    const isReadOnly =
-        user && (user.role === "accountant" || user.role === "viewer");
+    const isReadOnly = user && user.role === "viewer";
 
     const yearOptions = [
         { value: "all", label: "All Years" },
@@ -245,8 +244,6 @@ const BillReceipt = () => {
                                 : "Get started by adding your first monthly bill."
                         }
                         showButton={!searchTerm && yearFilter === "all"}
-                        buttonText="Add Bill"
-                        onButtonClick={handleAddBill}
                     />
                 )}
 

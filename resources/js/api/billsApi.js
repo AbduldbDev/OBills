@@ -42,6 +42,15 @@ export const billsApi = {
         }
     },
 
+    getMonthlyBills: async (id) => {
+        try {
+            const response = await api.get(`/data-check/${id}`);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
+
     getReadingHistory: async (id, year) => {
         try {
             const response = await api.get(`/reading-history/${id}/${year}`);

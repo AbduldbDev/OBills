@@ -23,7 +23,6 @@ const AccountAdd = () => {
     const roleOptions = [
         { value: "super_admin", label: "Super Admin" },
         { value: "admin", label: "Administrator" },
-        { value: "accountant", label: "Accountant" },
         { value: "viewer", label: "Viewer" },
     ];
 
@@ -32,12 +31,6 @@ const AccountAdd = () => {
 
         if (!formData.email.trim()) {
             newErrors.email = "Username is required";
-        } else if (
-            !/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(
-                formData.email
-            )
-        ) {
-            newErrors.email = "Please enter a valid email address";
         }
 
         if (!formData.password) {
@@ -217,7 +210,7 @@ const AccountAdd = () => {
                                     <FormInput
                                         label="Username (Email)"
                                         name="email"
-                                        type="email"
+                                        type="text"
                                         size="sm"
                                         value={formData.email}
                                         onChange={handleChange}

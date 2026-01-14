@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import Layout from "../components/Layout/Layout";
 import PageHeader from "../components/Common/PageHeader";
-import CalendarMonths from "../components/Menu/CalendarMonths";
+import CalendarMonths from "../components/Menu/CalendarMonthsPlain";
 
 const MonthCardsMenu = () => {
     const BaseUrl = "calendar";

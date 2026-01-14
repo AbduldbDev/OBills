@@ -325,15 +325,17 @@ const CalculationDetails = () => {
                                             Payment Information
                                         </h4>
                                         <div className="space-y-1 md:space-y-2 text-sm">
-                                            <div className="flex justify-between">
-                                                <span className="text-gray-600 dark:text-gray-400">
-                                                    Method:
+                                            <div className="flex justify-between items-center py-0.5">
+                                                <span className="text-gray-600 dark:text-gray-400 text-sm">
+                                                    Payment By:
                                                 </span>
                                                 <span className="font-medium text-gray-900 dark:text-white">
-                                                    {calculation.method ||
-                                                        "Not Paid"}
+                                                    {formatDate(
+                                                        calculation.date_paid
+                                                    )}
                                                 </span>
                                             </div>
+
                                             <div className="flex justify-between">
                                                 <span className="text-gray-600 dark:text-gray-400">
                                                     Date Paid:
@@ -351,14 +353,13 @@ const CalculationDetails = () => {
                                             Payment Information
                                         </h4>
                                         <div className="space-y-1 md:space-y-2 text-sm">
-                                            <div className="flex justify-between items-center py-0.5">
-                                                <span className="text-gray-600 dark:text-gray-400 text-sm">
-                                                    Computed By:
+                                            <div className="flex justify-between">
+                                                <span className="text-gray-600 dark:text-gray-400">
+                                                    Method:
                                                 </span>
                                                 <span className="font-medium text-gray-900 dark:text-white">
-                                                    {formatDate(
-                                                        calculation.date_paid
-                                                    )}
+                                                    {calculation.method ||
+                                                        "Not Paid"}
                                                 </span>
                                             </div>
                                             <div className="flex justify-between items-center py-0.5">
@@ -462,7 +463,7 @@ const CalculationDetails = () => {
                         </div>
 
                         {/* Computation Info */}
-                        <div className="bg-white dark:bg-dark-800 rounded-xl border border-gray-200 dark:border-dark-700 p-4 md:p-5">
+                        <div className="bg-white dark:bg-dark-800 rounded-xl border border-gray-200 dark:border-dark-700 px-4 md:px-5 py-4 md:py-5.75">
                             <h3 className="text-base md:text-lg font-semibold text-gray-900 dark:text-white mb-3 md:mb-4 flex items-center">
                                 <i className="fas fa-user-cog mr-2 text-gray-500 text-sm md:text-lg"></i>
                                 Computation Details
@@ -470,11 +471,21 @@ const CalculationDetails = () => {
                             <div className="space-y-2 md:space-y-4 text-sm">
                                 <div className="flex justify-between items-center">
                                     <span className="text-gray-600 dark:text-gray-400">
-                                        Date Computed
+                                        Date
                                     </span>
                                     <span className="font-medium text-gray-900 dark:text-white text-right">
                                         {formatDate(calculation.created_at)}
                                     </span>
+                                </div>
+                                <div className="flex justify-between items-center">
+                                    <span className="text-gray-600 dark:text-gray-400">
+                                        Time
+                                    </span>
+                                    <div className="text-right">
+                                        <div className="font-medium text-gray-900 dark:text-white">
+                                            aa
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="flex justify-between items-center">
                                     <span className="text-gray-600 dark:text-gray-400">
@@ -483,16 +494,6 @@ const CalculationDetails = () => {
                                     <div className="text-right">
                                         <div className="font-medium text-gray-900 dark:text-white">
                                             {calculation.computed_by || "N/A"}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="flex justify-between items-center">
-                                    <span className="text-gray-600 dark:text-gray-400">
-                                        Payment By
-                                    </span>
-                                    <div className="text-right">
-                                        <div className="font-medium text-gray-900 dark:text-white">
-                                            {totalBill?.payment_by || "N/A"}
                                         </div>
                                     </div>
                                 </div>

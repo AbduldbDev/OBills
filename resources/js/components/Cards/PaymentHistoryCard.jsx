@@ -6,6 +6,7 @@ const PaymentHistoryCard = ({
     onViewDetails,
     getStatusColor,
     getStatusLabel,
+    isReadOnly,
 }) => {
     const [isStatusMenuOpen, setIsStatusMenuOpen] = useState(false);
 
@@ -253,47 +254,50 @@ const PaymentHistoryCard = ({
             </div>
 
             {/* Card Footer with Buttons */}
-            <div className="p-4 border-t border-gray-200 dark:border-dark-700 flex justify-end gap-2">
-                <button
-                    onClick={() => onViewDetails(payment)}
-                    className="flex-1 px-4 py-2.5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-gray-200 rounded-lg text-sm font-medium transition-all duration-200 flex items-center justify-center gap-2 hover:shadow-sm"
-                >
-                    <i className="fas fa-eye"></i>
-                    View Details
-                </button>
-
-                {payment.status !== "paid" && payment.status !== "skipped" && (
+            {!isReadOnly && (
+                <div className="p-4 border-t border-gray-200 dark:border-dark-700 flex justify-end gap-2">
                     <button
-                        onClick={() => {
-                            onUpdateStatus({
-                                id: payment.id,
-                                unit_number: payment.unit_number,
-                                newStatus: "paid",
-                            });
-                        }}
-                        className="flex-1 px-4 py-2.5 border border-gray-300 dark:border-dark-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-dark-700 rounded-lg text-sm font-medium transition-all duration-200 flex items-center justify-center gap-2 hover:shadow-sm"
+                        onClick={() => onViewDetails(payment)}
+                        className="flex-1 px-4 py-2.5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-gray-200 rounded-lg text-sm font-medium transition-all duration-200 flex items-center justify-center gap-2 hover:shadow-sm"
                     >
-                        <i className="fas fa-edit"></i>
-                        Edit Status
+                        <i className="fas fa-eye"></i>
+                        View Details
                     </button>
-                )}
 
-                {payment.status === "skipped" && (
-                    <button
-                        onClick={() => {
-                            onUpdateStatus({
-                                id: payment.id,
-                                unit_number: payment.unit_number,
-                                newStatus: "pending",
-                            });
-                        }}
-                        className="flex-1 px-4 py-2.5 border border-gray-300 dark:border-dark-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-dark-700 rounded-lg text-sm font-medium transition-all duration-200 flex items-center justify-center gap-2 hover:shadow-sm"
-                    >
-                        <i className="fas fa-redo"></i>
-                        Unskip
-                    </button>
-                )}
-            </div>
+                    {payment.status !== "paid" &&
+                        payment.status !== "skipped" && (
+                            <button
+                                onClick={() => {
+                                    onUpdateStatus({
+                                        id: payment.id,
+                                        unit_number: payment.unit_number,
+                                        newStatus: "paid",
+                                    });
+                                }}
+                                className="flex-1 px-4 py-2.5 border border-gray-300 dark:border-dark-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-dark-700 rounded-lg text-sm font-medium transition-all duration-200 flex items-center justify-center gap-2 hover:shadow-sm"
+                            >
+                                <i className="fas fa-edit"></i>
+                                Edit Status
+                            </button>
+                        )}
+
+                    {payment.status === "skipped" && (
+                        <button
+                            onClick={() => {
+                                onUpdateStatus({
+                                    id: payment.id,
+                                    unit_number: payment.unit_number,
+                                    newStatus: "pending",
+                                });
+                            }}
+                            className="flex-1 px-4 py-2.5 border border-gray-300 dark:border-dark-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-dark-700 rounded-lg text-sm font-medium transition-all duration-200 flex items-center justify-center gap-2 hover:shadow-sm"
+                        >
+                            <i className="fas fa-redo"></i>
+                            Unskip
+                        </button>
+                    )}
+                </div>
+            )}
         </div>
     );
 };

@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import MonthCard from "../Cards/MonthCard";
+import { useNavigate } from "react-router-dom";
+import MonthCard from "../Cards/MonthCardPlain";
 import PageHeader from "../Common/PageHeader";
-import { billsApi } from "../../api/billsApi";
 
 const MonthCardsMenu = ({ BaseUrl }) => {
     const [selectedMonth, setSelectedMonth] = useState(null);
     const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
     const navigate = useNavigate();
-    const { id } = useParams();
     const [years, setYears] = useState([]);
-    const [occupiedMonths, setOccupiedMonths] = useState([]);
-    const [loading, setLoading] = useState(true);
 
     const months = [
         { id: 1, name: "January", shortName: "Jan" },
@@ -39,63 +35,16 @@ const MonthCardsMenu = ({ BaseUrl }) => {
         setSelectedYear(currentYear);
     }, []);
 
-    // Fetch occupied months when year changes
-    useEffect(() => {
-        fetchOccupiedMonths();
-    }, [selectedYear]);
-
-    const fetchOccupiedMonths = async () => {
-        try {
-            setLoading(true);
-
-            // Call your API to get months with data
-            const response = await billsApi.getMonthlyBills(id);
-
-            // Convert API response to array of month numbers
-            const occupiedMonthNumbers = response.data
-                .filter((item) => {
-                    // Check if month belongs to selected year
-                    const yearFromMonth = parseInt(item.month.split("-")[0]);
-                    return yearFromMonth === selectedYear;
-                })
-                .map((item) => {
-                    // Extract month number from "YYYY-MM" format
-                    return parseInt(item.month.split("-")[1]);
-                });
-
-            setOccupiedMonths(occupiedMonthNumbers);
-        } catch (error) {
-            console.error("Error fetching occupied months:", error);
-            setOccupiedMonths([]);
-        } finally {
-            setLoading(false);
-        }
-    };
-
     const handleYearChange = (e) => {
         setSelectedYear(parseInt(e.target.value));
         setSelectedMonth(null);
     };
 
     const handleMonthSelect = (monthId) => {
-        // Check if month has data (exists in occupiedMonths)
-        if (occupiedMonths.includes(monthId)) {
-            setSelectedMonth(monthId);
-            const monthString = monthId.toString().padStart(2, "0");
-            navigate(`/${BaseUrl}/${selectedYear}-${monthString}`);
-        }
-    };
+        setSelectedMonth(monthId);
 
-    // Check if a month has data in the API response
-    const hasMonthData = (monthId) => {
-        return occupiedMonths.includes(monthId);
-    };
-
-    const isCurrentMonth = (monthId) => {
-        return (
-            selectedYear === new Date().getFullYear() &&
-            monthId === new Date().getMonth() + 1
-        );
+        const monthString = monthId.toString().padStart(2, "0");
+        navigate(`/${BaseUrl}/${selectedYear}-${monthString}`);
     };
 
     return (
@@ -142,30 +91,24 @@ const MonthCardsMenu = ({ BaseUrl }) => {
 
             {/* Months Grid */}
             <div className="min-h-[55vh]">
-                {loading ? (
-                    <div className="flex justify-center items-center h-64">
-                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 dark:border-white"></div>
-                    </div>
-                ) : (
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-6 gap-4">
-                        {months.map((month) => {
-                            const hasData = hasMonthData(month.id);
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+                    {months.map((month) => {
+                        const isCurrentMonth =
+                            selectedYear === new Date().getFullYear() &&
+                            month.id === new Date().getMonth() + 1;
 
-                            return (
-                                <MonthCard
-                                    key={month.id}
-                                    month={month}
-                                    isCurrentMonth={isCurrentMonth(month.id)}
-                                    selectedYear={selectedYear}
-                                    onSelect={() => handleMonthSelect(month.id)}
-                                    isSelected={selectedMonth === month.id}
-                                    hasData={hasData}
-                                    noData={!hasData}
-                                />
-                            );
-                        })}
-                    </div>
-                )}
+                        return (
+                            <MonthCard
+                                key={month.id}
+                                month={month}
+                                isCurrentMonth={isCurrentMonth}
+                                selectedYear={selectedYear}
+                                onSelect={() => handleMonthSelect(month.id)}
+                                isSelected={selectedMonth === month.id}
+                            />
+                        );
+                    })}
+                </div>
             </div>
 
             {/* Footer Info */}

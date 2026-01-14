@@ -27,7 +27,6 @@ const AccountEdit = () => {
     const roleOptions = [
         { value: "super_admin", label: "Super Admin" },
         { value: "admin", label: "Administrator" },
-        { value: "accountant", label: "Accountant" },
         { value: "viewer", label: "Viewer" },
     ];
 

@@ -11,6 +11,7 @@ import LoadingState from "../components/Common/LoadingState";
 import ErrorState from "../components/Common/ErrorState";
 import ConfirmationModal from "../components/Common/ConfirmationModal";
 import Layout from "../components/Layout/Layout";
+import { useAuth } from "../context/AuthContext";
 
 const Accounts = () => {
     const navigate = useNavigate();
@@ -18,6 +19,9 @@ const Accounts = () => {
     const [filteredAccounts, setFilteredAccounts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const { user } = useAuth();
+    const isReadOnly =
+        (user && user.role === "viewer") || user.role === "admin";
 
     // Delete states
     const [accountToDelete, setAccountToDelete] = useState(null);
@@ -227,13 +231,15 @@ const Accounts = () => {
                     title="Accounts Management"
                     description="Manage user accounts and permissions"
                     actionButton={
-                        <button
-                            onClick={handleAddNewAccount}
-                            className="px-4 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-gray-200 rounded-lg text-sm font-medium transition-colors"
-                        >
-                            <i className="fas fa-plus mr-2"></i>
-                            Create Account
-                        </button>
+                        !isReadOnly && (
+                            <button
+                                onClick={handleAddNewAccount}
+                                className="px-4 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-gray-200 rounded-lg text-sm font-medium transition-colors"
+                            >
+                                <i className="fas fa-plus mr-2"></i>
+                                Create Account
+                            </button>
+                        )
                     }
                 />
 
@@ -265,6 +271,7 @@ const Accounts = () => {
                                 onDeleteSuccess={() => {}} // Not used with page navigation
                                 getAccountAge={getAccountAge}
                                 getRoleLabel={getRoleLabel}
+                                isReadOnly
                             />
                         ))}
                     </div>

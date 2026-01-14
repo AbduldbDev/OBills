@@ -10,6 +10,7 @@ import UnitCard from "../components/Cards/UnitCard";
 import { apartmentApi } from "../api/apartmentApi";
 import ConfirmationModal from "../components/Common/ConfirmationModal";
 import Layout from "../components/Layout/Layout";
+import { useAuth } from "../context/AuthContext";
 
 const Units = () => {
     const navigate = useNavigate();
@@ -17,6 +18,9 @@ const Units = () => {
     const [filteredUnits, setFilteredUnits] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const { user } = useAuth();
+    const isReadOnly =
+        (user && user.role === "viewer") || user.role === "admin";
 
     // Search and filter states
     const [searchTerm, setSearchTerm] = useState("");
@@ -206,13 +210,15 @@ const Units = () => {
                     title="Apartment Units"
                     description="Manage apartment units and tenant information"
                     actionButton={
-                        <button
-                            onClick={() => handleAddNewUnit()}
-                            className="px-4 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-gray-200 rounded-lg text-sm font-medium transition-colors"
-                        >
-                            <i className="fas fa-plus mr-2"></i>
-                            Add Unit
-                        </button>
+                        !isReadOnly && (
+                            <button
+                                onClick={() => handleAddNewUnit()}
+                                className="px-4 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-gray-200 rounded-lg text-sm font-medium transition-colors"
+                            >
+                                <i className="fas fa-plus mr-2"></i>
+                                Add Unit
+                            </button>
+                        )
                     }
                 />
 
@@ -242,6 +248,7 @@ const Units = () => {
                             onDeleteSuccess={handleDeleteSuccess}
                             getStatusColor={getStatusColor}
                             getStatusLabel={getStatusLabel}
+                            isReadOnly={isReadOnly}
                         />
                     ))}
                 </div>
@@ -261,8 +268,6 @@ const Units = () => {
                                 : "Get started by adding your first apartment unit."
                         }
                         showButton={!searchTerm && statusFilter === "all"}
-                        buttonText="Add Unit"
-                        onButtonClick={() => setIsAddModalOpen(true)}
                     />
                 )}
 

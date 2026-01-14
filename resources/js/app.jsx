@@ -11,7 +11,6 @@ import ReadingHistory from "./pages/ReadingHistory";
 import Calendar from "./pages/Calendar";
 import CalendarList from "./pages/CalendarList";
 import Accounts from "./pages/Accounts";
-import Tenants from "./pages/Tenants";
 import Units from "./pages/Units";
 import LoginPage from "./pages/LoginPage";
 import Calculation from "./pages/Calculation";
@@ -52,7 +51,13 @@ function App() {
             <Route
                 path="/"
                 element={
-                    <PrivateRoute>
+                    <PrivateRoute
+                        allowedRoles={[
+                            ROLES.SUPERADMIN,
+                            ROLES.ADMIN,
+                            ROLES.VIEWER,
+                        ]}
+                    >
                         <Dashboard />
                     </PrivateRoute>
                 }
@@ -60,7 +65,9 @@ function App() {
             <Route
                 path="/calculation"
                 element={
-                    <PrivateRoute>
+                    <PrivateRoute
+                        allowedRoles={[ROLES.SUPERADMIN, ROLES.ADMIN]}
+                    >
                         <Calculation />
                     </PrivateRoute>
                 }
@@ -68,7 +75,13 @@ function App() {
             <Route
                 path="/bill-receipt"
                 element={
-                    <PrivateRoute>
+                    <PrivateRoute
+                        allowedRoles={[
+                            ROLES.SUPERADMIN,
+                            ROLES.ADMIN,
+                            ROLES.VIEWER,
+                        ]}
+                    >
                         <BillReceipt />
                     </PrivateRoute>
                 }
@@ -76,7 +89,13 @@ function App() {
             <Route
                 path="/bill-receipt/new"
                 element={
-                    <PrivateRoute>
+                    <PrivateRoute
+                        allowedRoles={[
+                            ROLES.SUPERADMIN,
+                            ROLES.ADMIN,
+                            ROLES.VIEWER,
+                        ]}
+                    >
                         <AddBillReceipt />
                     </PrivateRoute>
                 }
@@ -84,7 +103,13 @@ function App() {
             <Route
                 path="/apartments-history"
                 element={
-                    <PrivateRoute>
+                    <PrivateRoute
+                        allowedRoles={[
+                            ROLES.SUPERADMIN,
+                            ROLES.ADMIN,
+                            ROLES.VIEWER,
+                        ]}
+                    >
                         <ApartmentsHistory />
                     </PrivateRoute>
                 }
@@ -92,7 +117,13 @@ function App() {
             <Route
                 path="/apartments-history/:id"
                 element={
-                    <PrivateRoute>
+                    <PrivateRoute
+                        allowedRoles={[
+                            ROLES.SUPERADMIN,
+                            ROLES.ADMIN,
+                            ROLES.VIEWER,
+                        ]}
+                    >
                         <ApartmentMonth />
                     </PrivateRoute>
                 }
@@ -100,7 +131,13 @@ function App() {
             <Route
                 path="/apartments-history/:id/:month"
                 element={
-                    <PrivateRoute>
+                    <PrivateRoute
+                        allowedRoles={[
+                            ROLES.SUPERADMIN,
+                            ROLES.ADMIN,
+                            ROLES.VIEWER,
+                        ]}
+                    >
                         <CalculationDetails />
                     </PrivateRoute>
                 }
@@ -108,7 +145,13 @@ function App() {
             <Route
                 path="/payment-history"
                 element={
-                    <PrivateRoute>
+                    <PrivateRoute
+                        allowedRoles={[
+                            ROLES.SUPERADMIN,
+                            ROLES.ADMIN,
+                            ROLES.VIEWER,
+                        ]}
+                    >
                         <PaymentHistory />
                     </PrivateRoute>
                 }
@@ -117,7 +160,13 @@ function App() {
             <Route
                 path="/payment-history/:id"
                 element={
-                    <PrivateRoute>
+                    <PrivateRoute
+                        allowedRoles={[
+                            ROLES.SUPERADMIN,
+                            ROLES.ADMIN,
+                            ROLES.VIEWER,
+                        ]}
+                    >
                         <PaymentList />
                     </PrivateRoute>
                 }
@@ -125,7 +174,13 @@ function App() {
             <Route
                 path="/reading-history"
                 element={
-                    <PrivateRoute>
+                    <PrivateRoute
+                        allowedRoles={[
+                            ROLES.SUPERADMIN,
+                            ROLES.ADMIN,
+                            ROLES.VIEWER,
+                        ]}
+                    >
                         <ReadingHistory />
                     </PrivateRoute>
                 }
@@ -133,7 +188,13 @@ function App() {
             <Route
                 path="/reading-history/:id"
                 element={
-                    <PrivateRoute>
+                    <PrivateRoute
+                        allowedRoles={[
+                            ROLES.SUPERADMIN,
+                            ROLES.ADMIN,
+                            ROLES.VIEWER,
+                        ]}
+                    >
                         <ReadingMonths />
                     </PrivateRoute>
                 }
@@ -141,7 +202,13 @@ function App() {
             <Route
                 path="/reading-history/:id/:year"
                 element={
-                    <PrivateRoute>
+                    <PrivateRoute
+                        allowedRoles={[
+                            ROLES.SUPERADMIN,
+                            ROLES.ADMIN,
+                            ROLES.VIEWER,
+                        ]}
+                    >
                         <ReadingList />
                     </PrivateRoute>
                 }
@@ -149,7 +216,13 @@ function App() {
             <Route
                 path="/calendar"
                 element={
-                    <PrivateRoute>
+                    <PrivateRoute
+                        allowedRoles={[
+                            ROLES.SUPERADMIN,
+                            ROLES.ADMIN,
+                            ROLES.VIEWER,
+                        ]}
+                    >
                         <Calendar />
                     </PrivateRoute>
                 }
@@ -157,7 +230,13 @@ function App() {
             <Route
                 path="/calendar/:month"
                 element={
-                    <PrivateRoute>
+                    <PrivateRoute
+                        allowedRoles={[
+                            ROLES.SUPERADMIN,
+                            ROLES.ADMIN,
+                            ROLES.VIEWER,
+                        ]}
+                    >
                         <CalendarList />
                     </PrivateRoute>
                 }
@@ -165,7 +244,9 @@ function App() {
             <Route
                 path="/accounts"
                 element={
-                    <PrivateRoute allowedRoles={[ROLES.SUPERADMIN]}>
+                    <PrivateRoute
+                        allowedRoles={[ROLES.SUPERADMIN, ROLES.ADMIN]}
+                    >
                         <Accounts />
                     </PrivateRoute>
                 }
@@ -188,17 +269,15 @@ function App() {
             />
 
             <Route
-                path="/tenants"
-                element={
-                    <PrivateRoute allowedRoles={[ROLES.SUPERADMIN]}>
-                        <Tenants />
-                    </PrivateRoute>
-                }
-            />
-            <Route
                 path="/units"
                 element={
-                    <PrivateRoute allowedRoles={[ROLES.SUPERADMIN]}>
+                    <PrivateRoute
+                        allowedRoles={[
+                            ROLES.SUPERADMIN,
+                            ROLES.ADMIN,
+                            ROLES.VIEWER,
+                        ]}
+                    >
                         <Units />
                     </PrivateRoute>
                 }

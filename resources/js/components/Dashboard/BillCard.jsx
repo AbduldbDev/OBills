@@ -5,7 +5,7 @@ import { useAuth } from "../../context/AuthContext";
 const BillCard = ({ bill, totalBill, selectedMonth, onComputeSuccess }) => {
     const { user } = useAuth();
     const isReadOnly =
-        user && (user.role === "accountant" || user.role === "viewer");
+        user && (user.role === "viewer");
 
     const [previousReading, setPreviousReading] = useState(
         bill.previousReading

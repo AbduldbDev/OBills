@@ -8,6 +8,7 @@ const UnitCard = ({
     onDeleteSuccess, // Callback when delete is successful
     getStatusColor,
     getStatusLabel,
+    isReadOnly,
 }) => {
     const navigate = useNavigate();
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -119,27 +120,29 @@ const UnitCard = ({
                 </div>
 
                 {/* Action Buttons */}
-                <div className="mt-4 pt-4 border-t border-gray-100 dark:border-dark-700">
-                    <div className="flex space-x-2">
-                        {/* Edit Button */}
-                        <button
-                            onClick={handleEdit}
-                            className="flex-1 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-dark-700 hover:bg-gray-200 dark:hover:bg-dark-600 rounded-lg transition-colors flex items-center justify-center border border-gray-300 dark:border-dark-600"
-                        >
-                            <i className="fas fa-edit mr-2"></i>
-                            Edit
-                        </button>
+                {!isReadOnly && (
+                    <div className="mt-4 pt-4 border-t border-gray-100 dark:border-dark-700">
+                        <div className="flex space-x-2">
+                            {/* Edit Button */}
+                            <button
+                                onClick={handleEdit}
+                                className="flex-1 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-dark-700 hover:bg-gray-200 dark:hover:bg-dark-600 rounded-lg transition-colors flex items-center justify-center border border-gray-300 dark:border-dark-600"
+                            >
+                                <i className="fas fa-edit mr-2"></i>
+                                Edit
+                            </button>
 
-                        {/* Delete Button */}
-                        <button
-                            onClick={handleDeleteClick}
-                            className="flex-1 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-dark-700 hover:bg-gray-200 dark:hover:bg-dark-600 rounded-lg transition-colors flex items-center justify-center border border-gray-300 dark:border-dark-600"
-                        >
-                            <i className="fas fa-trash mr-2"></i>
-                            Delete
-                        </button>
+                            {/* Delete Button */}
+                            <button
+                                onClick={handleDeleteClick}
+                                className="flex-1 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-dark-700 hover:bg-gray-200 dark:hover:bg-dark-600 rounded-lg transition-colors flex items-center justify-center border border-gray-300 dark:border-dark-600"
+                            >
+                                <i className="fas fa-trash mr-2"></i>
+                                Delete
+                            </button>
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
 
             {/* Delete Confirmation Modal */}
