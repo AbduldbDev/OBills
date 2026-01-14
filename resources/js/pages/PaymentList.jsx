@@ -257,6 +257,8 @@ const PaymentHistory = () => {
                     <PageHeader
                         title="Payment History"
                         description="Review apartment payment status, billing summaries, and transaction records."
+                        showBackButton={true}
+                        backButtonText="Go Back"
                     />
                     <LoadingState message="Loading payment history..." />
                 </div>
@@ -274,6 +276,8 @@ const PaymentHistory = () => {
                 <PageHeader
                     title="Payment History"
                     description="Review apartment payment status, billing summaries, and transaction records."
+                    showBackButton={true}
+                    backButtonText="Go Back"
                 />
 
                 {/* Success Message */}

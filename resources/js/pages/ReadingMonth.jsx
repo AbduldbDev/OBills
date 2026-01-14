@@ -13,6 +13,8 @@ const ReadingMonths = () => {
                 <PageHeader
                     title="Reading History"
                     description="Check historical meter readings for each apartment by year."
+                    showBackButton={true}
+                    backButtonText="Go Back"
                 />
 
                 <YearMenu BaseUrl={BaseUrl} />

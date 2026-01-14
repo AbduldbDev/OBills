@@ -13,6 +13,8 @@ const ApartmentHistory = () => {
                 <PageHeader
                     title="Apartments History"
                     description="Monitor past apartment billing activities, payments, and computation records."
+                    showBackButton={true}
+                    backButtonText="Go Back"
                 />
                 <CalendarMonths BaseUrl={BaseUrl} />
             </div>

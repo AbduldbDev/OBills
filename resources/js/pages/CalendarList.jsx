@@ -212,6 +212,8 @@ const ReadingList = () => {
                     <PageHeader
                         title="Calendar"
                         description="Monthly calendar view of meter readings for all apartments."
+                        showBackButton={true}
+                        backButtonText="Go Back"
                     />
                     <LoadingState message="Loading reading history..." />
                 </div>
@@ -226,6 +228,8 @@ const ReadingList = () => {
                 <PageHeader
                     title="Calendar"
                     description="Monthly calendar view of meter readings for all apartments."
+                    showBackButton={true}
+                    backButtonText="Go Back"
                 />
                 {/* Search and Filter Bar */}
                 <SearchFilterBar

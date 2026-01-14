@@ -212,6 +212,8 @@ const ReadingList = () => {
                     <PageHeader
                         title="Reading History"
                         description="Check historical meter readings for each apartment by year."
+                        showBackButton={true}
+                        backButtonText="Go Back"
                     />
                     <LoadingState message="Loading reading history..." />
                 </div>
@@ -226,6 +228,8 @@ const ReadingList = () => {
                 {/* Page Header */}
                 <PageHeader
                     title="Reading History"
+                    showBackButton={true}
+                    backButtonText="Go Back"
                     description="Check historical meter readings for each apartment by year."
                 />
 

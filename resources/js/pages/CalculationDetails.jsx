@@ -158,6 +158,8 @@ const CalculationDetails = () => {
                     <PageHeader
                         title="Calculation Details"
                         description="Loading details..."
+                        showBackButton={true}
+                        backButtonText="Go Back"
                     />
                     <LoadingState message="Loading bill details..." />
                 </div>
@@ -171,6 +173,8 @@ const CalculationDetails = () => {
             <div className="pt-2">
                 {/* Page Header */}
                 <PageHeader
+                    showBackButton={true}
+                    backButtonText="Go Back"
                     title={`Calculation Details (SM-${safeGet(
                         calculation,
                         "unit.submeter_number"
