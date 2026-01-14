@@ -5,9 +5,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => [
-        'https://obills.online',
-    ],
+    'allowed_origins' => ['https://obills.online'],
 
     'allowed_origins_patterns' => [],
 
