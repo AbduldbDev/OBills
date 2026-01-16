@@ -8,12 +8,13 @@ use App\Http\Controllers\Api\UnitController;
 use App\Http\Controllers\Api\BillsReceiptController;
 use App\Http\Controllers\Api\TenantBillController;
 use App\Http\Controllers\Api\DashboardController;
+use App\Http\Controllers\Api\InvoiceController;
 
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware(['auth:sanctum',])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard']);
-    
+
     Route::post('/logout', [AuthController::class, 'login']);
     Route::get('/user', [AuthController::class, 'user']);
 
@@ -35,3 +36,6 @@ Route::middleware(['auth:sanctum',])->group(function () {
 
     Route::apiResource('tenant-bills', TenantBillController::class);
 });
+
+Route::get('export-pdf/{id}', [InvoiceController::class, 'getPDF']);
+Route::get('download-pdf/{id}', [InvoiceController::class, 'downloadPDF']);

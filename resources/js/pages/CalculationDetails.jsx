@@ -5,6 +5,7 @@ import ErrorState from "../components/Common/ErrorState";
 import PageHeader from "../components/Common/PageHeader";
 import Layout from "../components/Layout/Layout";
 import { CalculationApi } from "../api/calculationApi";
+const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 const CalculationDetails = () => {
     const [loading, setLoading] = useState(true);
@@ -185,14 +186,22 @@ const CalculationDetails = () => {
                     )} - ${safeGet(calculation, "unit.tenant_name")}`}
                     actionButton={
                         <div className="flex space-x-3">
-                            <button className="px-4 py-2 bg-gray-100 dark:bg-dark-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-dark-600 rounded-lg text-sm font-medium transition-colors flex items-center">
+                            <a
+                                target="_blank"
+                                href={`${VITE_API_URL}/export-pdf/${calculation.id}`}
+                                className="cursor-pointer px-4 py-2 bg-gray-100 dark:bg-dark-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-dark-600 rounded-lg text-sm font-medium transition-colors flex items-center"
+                            >
                                 <i className="fas fa-print mr-2"></i>
                                 Print
-                            </button>
-                            <button className="px-4 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-gray-200 rounded-lg text-sm font-medium transition-colors flex items-center">
+                            </a>
+                            <a
+                                target="_blank"
+                                href={`${VITE_API_URL}/download-pdf/${calculation.id}`}
+                                className="cursor-pointer px-4 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-gray-200 rounded-lg text-sm font-medium transition-colors flex items-center"
+                            >
                                 <i className="fas fa-download mr-2"></i>
                                 Download
-                            </button>
+                            </a>
                         </div>
                     }
                 />
