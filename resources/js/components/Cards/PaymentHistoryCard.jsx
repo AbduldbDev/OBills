@@ -117,12 +117,12 @@ const PaymentHistoryCard = ({
                             <div className="flex items-center gap-2">
                                 <i className="fas fa-hashtag text-gray-500 dark:text-gray-400 text-sm"></i>
                                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                                    SM-{payment.unit_number || "N/A"}
+                                    SM-{payment.submeter_number || "N/A"}
                                 </h3>
                             </div>
                             <span
                                 className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(
-                                    payment.status
+                                    payment.status,
                                 )}`}
                             >
                                 {getStatusLabel(payment.status)}

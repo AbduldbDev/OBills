@@ -264,7 +264,7 @@ const DashboardCharts = ({ monthlyBillsData, kwhRateData, theme }) => {
                             value={`${
                                 billsStats.growth >= 0 ? "+" : ""
                             }${billsStats.growth.toFixed(1)}%`}
-                            color={billsStats.growth >= 0 ? "emerald" : "red"}
+                            color={billsStats.growth >= 0 ? "red" : "emerald"}
                         />
                     </div>
                 )}
@@ -399,7 +399,7 @@ const DashboardCharts = ({ monthlyBillsData, kwhRateData, theme }) => {
                             value={`${
                                 rateStats.change >= 0 ? "+" : ""
                             }${rateStats.change.toFixed(1)}%`}
-                            color={rateStats.change >= 0 ? "emerald" : "red"}
+                            color={rateStats.change >= 0 ? "red" : "emerald"}
                         />
                     </div>
                 )}

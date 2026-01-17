@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 
 <head>
@@ -331,13 +331,18 @@
         <table class="header-table">
             <tr class="header-row">
                 <td class="header-cell">
-                    <h2 class="header-title">Submeter {{ $bill->unit->submeter_number ?? 'N/A' }}</h2>
-                    <h2 class="header-text">Tenant: {{ $bill->unit->tenant_name ?? 'N/A' }}</h2>
+                    <h2 class="header-title">
+                        Submeter {{ $bill->unit->submeter_number ?? 'N/A' }}
+                    </h2>
+                    <h2 class="header-text">
+                        Tenant: {{ $bill->unit->tenant_name ?? 'N/A' }}
+                    </h2>
                 </td>
                 <td class="header-cell right">
                     <h2 class="header-text">{{ $billDate ?? date('F d,Y') }}</h2>
                     <h2 class="header-text">
-                        Bill for: <span class="bold">{{ $formattedMonth ?? date('F Y') }}</span>
+                        Bill for:
+                        <span class="bold">{{ $formattedMonth ?? date('F Y') }}</span>
                     </h2>
                 </td>
             </tr>
@@ -348,16 +353,19 @@
             <tr class="receipt-row">
                 <td class="receipt-cell">
                     <h1 class="receipt-title">
-                        Bill Receipt: <span class="bold">
+                        Bill Receipt:
+                        <span class="bold">
                             P{{ number_format(optional($billReceipt)->total_bill ?? 0, 2) }}</span>
                     </h1>
                     <h1 class="receipt-title">
-                        Due Date: <span class="bold">{{ $dueDate ?? date('F d,Y', strtotime('+15 days')) }}</span>
+                        Due Date:
+                        <span class="bold">{{ $dueDate ?? date('F d,Y', strtotime('+15 days')) }}</span>
                     </h1>
                 </td>
                 <td class="receipt-cell" style="text-align: right">
                     <h1 class="receipt-title">
-                        Total Bill: <span class="total-red">P{{ number_format($bill->total_amount, 2) }}</span>
+                        Total Bill:
+                        <span class="total-red">P{{ number_format($bill->total_amount, 2) }}</span>
                     </h1>
                 </td>
             </tr>
@@ -373,7 +381,9 @@
                     <td class="reading-cell left">
                         <table class="reading-inner-table">
                             <tr>
-                                <td class="reading-inner-cell">{{ $previousMonthFormatted ?? 'Previous Month' }}</td>
+                                <td class="reading-inner-cell">
+                                    {{ $previousMonthFormatted ?? 'Previous Month' }}
+                                </td>
                                 <td class="reading-inner-cell" style="text-align: right">
                                     {{ $bill->previous_reading ?? '0' }}
                                 </td>
@@ -381,7 +391,8 @@
                         </table>
                     </td>
                     <td class="reading-cell right">
-                        <span>Total Consumption:</span> <span>{{ $bill->total_consumption ?? '0' }} kWh</span>
+                        <span>Total Consumption:</span>
+                        <span>{{ $bill->total_consumption ?? '0' }} kWh</span>
                     </td>
                 </tr>
             </table>
@@ -391,7 +402,9 @@
                     <td class="reading-cell left">
                         <table class="reading-inner-table">
                             <tr>
-                                <td class="reading-inner-cell">{{ $formattedMonth ?? 'Previous Month' }}</td>
+                                <td class="reading-inner-cell">
+                                    {{ $formattedMonth ?? 'Previous Month' }}
+                                </td>
                                 <td class="reading-inner-cell" style="text-align: right">
                                     {{ $bill->current_reading ?? '0' }}
                                 </td>
@@ -399,14 +412,17 @@
                         </table>
                     </td>
                     <td class="reading-cell right">
-                        <span>Rate per kWh:</span> <span> P{{ number_format($bill->rate, 2) }}</span>
+                        <span>Rate per kWh:</span>
+                        <span> P{{ number_format($bill->rate, 2) }}</span>
                     </td>
                 </tr>
             </table>
         </div>
 
         <!-- Total Bill -->
-        <div class="total-bill">Total Bill: P{{ number_format($bill->total_amount, 2) }}</div>
+        <div class="total-bill">
+            Total Bill: P{{ number_format($bill->total_amount, 2) }}
+        </div>
 
         <!-- Payments Section -->
         <div class="payments-section">
@@ -417,8 +433,8 @@
                         <span class="bold">Gcash: 09919226260</span> John Clyde Ongchad
                     </p>
                     <p class="payment-note">
-                        Please message <span class="bold">MJ Ongchad</span> in messenger the screenshot of
-                        payment if Gcash
+                        Please message <span class="bold">MJ Ongchad</span> in messenger
+                        the screenshot of payment if Gcash
                     </p>
                 </div>
             </div>
@@ -426,6 +442,23 @@
 
         <!-- Slip Section -->
         <div class="slip-section">
+            <table class="header-table">
+                <tr class="header-row">
+                    <td class="header-cell">
+                        <h2 class="header-text">
+                            Bill for:
+                            <span class="bold">{{ $formattedMonth ?? date('F Y') }}</span>
+                        </h2>
+                    </td>
+                    <td class="header-cell right">
+                        <h2 class="header-text">
+                            Submeter No:
+                            <span class="bold">
+                                {{ $bill->unit->submeter_number ?? 'N/A' }}</span>
+                        </h2>
+                    </td>
+                </tr>
+            </table>
             <h1 class="slip-title">( For cash payments only )</h1>
 
             <table class="form-table">
@@ -449,30 +482,14 @@
                 <tr class="form-row">
                     <td class="form-cell">
                         <div class="form-line">
-                            <span class="form-label">Submeter no:</span>
-                            <div class="underline-full"></div>
-                        </div>
-                    </td>
-                    <td class="form-cell">
-                        <div class="form-line right">
-                            <span class="form-label">Bill Amount:</span>
-                            <div class="underline-full"></div>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-
-            <table class="form-table">
-                <tr class="form-row">
-                    <td class="form-cell">
-                        <div class="form-line">
                             <span class="form-label">Cash Amount:</span>
                             <div class="underline-full"></div>
                         </div>
                     </td>
                     <td class="form-cell">
                         <div class="form-line right">
-                            <span class="form-label">Signature:</span>
+                            <span class="form-label">Bill Amount:
+                                <b>P{{ number_format($bill->total_amount, 2) }}</b></span>
                             <div class="underline-full"></div>
                         </div>
                     </td>
@@ -483,9 +500,10 @@
         <!-- Notice Section -->
         <div class="notice-section">
             <p>
-                <span class="bold">Notice:</span> This portion serves as the payment slip and
-                <span class="bold">must be submitted together with the cash payment</span> for the
-                electric bill.
+                <span class="bold">Notice:</span> This portion serves as the payment
+                slip and
+                <span class="bold">must be submitted together with the cash payment</span>
+                for the electric bill.
             </p>
         </div>
     </div>
